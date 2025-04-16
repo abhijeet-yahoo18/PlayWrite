@@ -1,0 +1,47 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: Handle multiple alerts
+- Location: D:\typescript\PlayWrite\tests\handleAlert.spec.js:3:1
+
+# Error details
+
+```
+Error: locator.click: Test ended.
+Call log:
+  - waiting for getByText('Click for JS Confirm')
+    - locator resolved to <button onclick="jsConfirm()">Click for JS Confirm</button>
+  - attempting click action
+    - waiting for element to be visible, enabled and stable
+    - element is visible, enabled and stable
+    - scrolling into view if needed
+    - done scrolling
+    - performing click action
+
+    at D:\typescript\PlayWrite\tests\handleAlert.spec.js:13:50
+```
+
+# Test source
+
+```ts
+   1 | const {test, expect}=require('@playwright/test')
+   2 | //Need to check
+   3 | test ("Handle multiple alerts", async function ({page}) {
+   4 |     await page.goto("https://the-internet.herokuapp.com/javascript_alerts") 
+   5 |     
+   6 | page.on('dialog',async(dialogWindow)=>
+   7 |     {
+   8 |         expect(dialogWindow.type()).toContain('Confirm')
+   9 |         expect(dialogWindow.message()).toContain("I am a JS Confirm")
+  10 |         await page.waitForTimeout(1000)
+  11 |         await dialogWindow.dismiss()
+  12 |     })
+> 13 |     await page.getByText("Click for JS Confirm").click()    
+     |                                                  ^ Error: locator.click: Test ended.
+  14 | })
+```

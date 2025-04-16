@@ -1,0 +1,75 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: Total count till page get loaded
+- Location: D:\typescript\PlayWrite\tests\totalCount.spec.js:3:1
+
+# Error details
+
+```
+Error: expect(received).toEqual(expected) // deep equality
+
+Expected: 6
+Received: 0
+    at D:\typescript\PlayWrite\tests\totalCount.spec.js:7:23
+```
+
+# Page snapshot
+
+```yaml
+- navigation:
+  - img "logo"
+  - heading "Learn Automation Courses" [level=1]
+  - img "menu"
+  - text: Learn Automation Courses
+  - img "delete"
+  - link "Home"
+  - link "Practise"
+  - button "Log in"
+- img "Login"
+- heading "Sign In" [level=2]
+- textbox "Enter Email"
+- textbox "Enter Password"
+- button "Sign in"
+- link "New user? Signup"
+- heading "Connect with us" [level=2]
+- link:
+  - img
+- link:
+  - img
+- link:
+  - img
+- link:
+  - img
+- link:
+  - img
+- heading "Learn Automation By Mukesh Otwani" [level=3]
+- heading "©2023 All rights reserved" [level=2]
+- link:
+  - img
+- link:
+  - img
+- link:
+  - img
+- link:
+  - img
+```
+
+# Test source
+
+```ts
+  1 | const{test,expect}= require('@playwright/test')
+  2 |
+  3 | test("Total count till page get loaded", async function ({page}) {
+  4 |     await page.goto("https://freelance-learn-automation.vercel.app/login/")
+  5 |     await page.waitForLoadState("networkidle")
+  6 |     const countName=await page.locator("//*[@type='checkbox']").count()
+> 7 |     expect(countName).toEqual(6)
+    |                       ^ Error: expect(received).toEqual(expected) // deep equality
+  8 | });
+```

@@ -1,0 +1,69 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: Verify OrangeHRM title
+- Location: D:\typescript\PlayWrite\tests\OrangeHRM.spec.js:3:1
+
+# Error details
+
+```
+Error: Timed out 5000ms waiting for expect(locator).toHaveTitle(expected)
+
+Locator: locator(':root')
+Expected string: "OrangeHR"
+Received string: "OrangeHRM"
+Call log:
+  - expect.toHaveTitle with timeout 5000ms
+  - waiting for locator(':root')
+    9 × locator resolved to <html>…</html>
+      - unexpected value "OrangeHRM"
+
+    at D:\typescript\PlayWrite\tests\OrangeHRM.spec.js:10:23
+```
+
+# Page snapshot
+
+```yaml
+- img "company-branding"
+- heading "Login" [level=5]
+- paragraph: "Username : Admin"
+- paragraph: "Password : admin123"
+- text:  Username
+- textbox "Username"
+- text:  Password
+- textbox "Password"
+- button "Login"
+- paragraph: Forgot your password?
+- link
+- link
+- link
+- link
+- paragraph: OrangeHRM OS 5.7
+- paragraph:
+  - text: © 2005 - 2025
+  - link "OrangeHRM, Inc"
+  - text: . All rights reserved.
+- img "orangehrm-logo"
+```
+
+# Test source
+
+```ts
+   1 | const{test,expect} =require('@playwright/test');
+   2 |
+   3 | test("Verify OrangeHRM title",async ({page})=> {
+   4 |    await page.goto("https://opensource-demo.orangehrmlive.com/");
+   5 |    const url =await page.url();
+   6 |    console.log("Title is "+url);
+   7 |    const title=await page.title()
+   8 |    console.log("Page title is "+title)
+   9 |    //to check retry
+> 10 |    await expect(page).toHaveTitle("OrangeHR")
+     |                       ^ Error: Timed out 5000ms waiting for expect(locator).toHaveTitle(expected)
+  11 | });
+```

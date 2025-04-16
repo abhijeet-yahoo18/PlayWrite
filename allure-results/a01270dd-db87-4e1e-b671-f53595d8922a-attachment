@@ -1,0 +1,57 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: test
+- Location: D:\typescript\PlayWrite\tests\recording.spec.js:3:5
+
+# Error details
+
+```
+Error: locator.click: Test timeout of 50000ms exceeded.
+Call log:
+  - waiting for getByRole('link', { name: 'Human Resources Management' })
+    - waiting for" https://www.google.com/search?q=orangehrm&sca_esv=3197df341c4bb26a&source=hp&ei=NPP5Z_j8Isfb2roPyvrDqAE&iflsig=ACkRmUkAAAAAZ_oBRElelqrw66zZyNH7-iwJQwDQsU9b&gs_ssp=eJzj4tTP1TdISzOuKlNgNGB0YPDizC9KzEtP…" navigation to finish...
+    - navigated to "https://www.google.com/sorry/index?continue=https://www.google.com/search%3Fq%3Dorangehrm%26sca_esv%3D3197df341c4bb26a%26source%3Dhp%26ei%3DNPP5Z_j8Isfb2roPyvrDqAE%26iflsig%3DACkRmUkAAAAAZ_oBRElelqrw…"
+
+    at D:\typescript\PlayWrite\tests\recording.spec.js:8:72
+```
+
+# Page snapshot
+
+```yaml
+- separator
+- separator
+- text: About this page Our systems have detected unusual traffic from your computer network. This page checks to see if it's really you sending the requests, and not a robot.
+- link "Why did this happen?"
+- text: "IP address: 103.181.61.240 Time: 2025-04-12T04:59:34Z URL: https://www.google.com/search?q=orangehrm&sca_esv=3197df341c4bb26a&source=hp&ei=NPP5Z_j8Isfb2roPyvrDqAE&iflsig=ACkRmUkAAAAAZ_oBRElelqrw66zZyNH7-iwJQwDQsU9b&gs_ssp=eJzj4tTP1TdISzOuKlNgNGB0YPDizC9KzEtPzSjKBQBfagem&oq=OrangeHRM&gs_lp=Egdnd3Mtd2l6IglPcmFuZ2VIUk0qAggAMg4QLhiABBixAxjRAxjHATILEAAYgAQYsQMYgwEyBRAAGIAEMgUQABiABDIFEAAYgAQyBRAAGIAEMgUQABiABDIFEAAYgAQyBRAAGIAEMgUQABiABEiPAlBbWFtwAXgAkAEAmAFvoAFvqgEDMC4xuAEByAEA-AEBmAICoAKNAagCCsICChAAGAMY6gIYjwGYAxvxBTS-71r6JDHAkgcDMS4xoAf1BrIHAzAuMbgHcg&sclient=gws-wiz&sei=NvP5Z8iTCpOTseMPjJOx8AY"
+```
+
+# Test source
+
+```ts
+   1 | import { test, expect } from '@playwright/test';
+   2 |
+   3 | test('test', async ({ page }) => {
+   4 |   await page.goto('https://www.google.com/');
+   5 |   await page.getByRole('combobox', { name: 'Search' }).click();
+   6 |   await page.getByRole('combobox', { name: 'Search' }).fill('OrangeHRM');
+   7 |   await page.getByText('OrangeHRM', { exact: true }).click();
+>  8 |   await page.getByRole('link', { name: 'Human Resources Management' }).click();
+     |                                                                        ^ Error: locator.click: Test timeout of 50000ms exceeded.
+   9 |   await page.goto('https://www.google.com/search?q=orangehrm&sca_esv=25dd1b6fd40bfe61&source=hp&ei=TvXgZ_HTL9PN5OUPufiY6A0&iflsig=ACkRmUkAAAAAZ-EDXrErj_-wkJLdDxuaVjuDh2clyobk&gs_ssp=eJzj4tTP1TdISzOuKlNgNGB0YPDizC9KzEtPzSjKBQBfagem&oq=OrangeHRM&gs_lp=Egdnd3Mtd2l6IglPcmFuZ2VIUk0qAggAMg4QLhiABBixAxjRAxjHATIFEAAYgAQyBRAAGIAEMgUQABiABDIFEAAYgAQyBRAAGIAEMgUQABiABDIFEAAYgAQyBRAAGIAEMgUQABiABEiQSFDeDVj_J3ABeACQAQCYAYMBoAHdCKoBAzAuObgBAcgBAPgBAZgCCqAC_gioAgrCAgoQABgDGOoCGI8BwgINEC4YAxjUAhjqAhiPAcICChAuGAMY6gIYjwHCAhEQLhiABBixAxjRAxiDARjHAcICDhAuGIAEGLEDGIMBGIoFwgILEAAYgAQYsQMYgwHCAggQABiABBixA8ICDhAAGIAEGLEDGIMBGIoFwgIIEC4YgAQYsQPCAg0QLhiABBjRAxjHARgKmAMI8QWas4gV2IdR8pIHAzEuOaAH4l6yBwMwLjm4B_YI&sclient=gws-wiz&sei=XPXgZ7GOOdmSseMP1LSNsQw');
+  10 |   await page.getByRole('link', { name: 'Sign In', exact: true }).click();
+  11 |   await page.getByRole('link', { name: 'Login here' }).click();
+  12 |   await page.goto('https://www.google.com/search?q=orangehrm&sca_esv=25dd1b6fd40bfe61&source=hp&ei=TvXgZ_HTL9PN5OUPufiY6A0&iflsig=ACkRmUkAAAAAZ-EDXrErj_-wkJLdDxuaVjuDh2clyobk&gs_ssp=eJzj4tTP1TdISzOuKlNgNGB0YPDizC9KzEtPzSjKBQBfagem&oq=OrangeHRM&gs_lp=Egdnd3Mtd2l6IglPcmFuZ2VIUk0qAggAMg4QLhiABBixAxjRAxjHATIFEAAYgAQyBRAAGIAEMgUQABiABDIFEAAYgAQyBRAAGIAEMgUQABiABDIFEAAYgAQyBRAAGIAEMgUQABiABEiQSFDeDVj_J3ABeACQAQCYAYMBoAHdCKoBAzAuObgBAcgBAPgBAZgCCqAC_gioAgrCAgoQABgDGOoCGI8BwgINEC4YAxjUAhjqAhiPAcICChAuGAMY6gIYjwHCAhEQLhiABBixAxjRAxiDARjHAcICDhAuGIAEGLEDGIMBGIoFwgILEAAYgAQYsQMYgwHCAggQABiABBixA8ICDhAAGIAEGLEDGIMBGIoFwgIIEC4YgAQYsQPCAg0QLhiABBjRAxjHARgKmAMI8QWas4gV2IdR8pIHAzEuOaAH4l6yBwMwLjm4B_YI&sclient=gws-wiz&sei=XPXgZ7GOOdmSseMP1LSNsQw');
+  13 |   await page.getByRole('link', { name: 'OrangeHRM OrangeHRM Demo' }).click();
+  14 |   await page.getByRole('textbox', { name: 'Username' }).fill('Admin');
+  15 |   await page.getByRole('textbox', { name: 'Username' }).press('Tab');
+  16 |   await page.getByRole('textbox', { name: 'Password' }).fill('admin123');
+  17 |   await page.getByRole('button', { name: 'Login' }).click();
+  18 |   await page.getByRole('button', { name: '' }).click();
+  19 | });
+```
