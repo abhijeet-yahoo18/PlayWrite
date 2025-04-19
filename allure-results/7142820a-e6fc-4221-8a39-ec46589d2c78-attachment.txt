@@ -1,2 +1,0 @@
-Title is https://opensource-demo.orangehrmlive.com/web/index.php/auth/login
-Page title is OrangeHRM
